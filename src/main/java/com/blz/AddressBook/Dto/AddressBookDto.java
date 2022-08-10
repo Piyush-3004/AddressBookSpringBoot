@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class AddressBookDto {
 
-	private long contactId;
+//	private long contactId;
 	private String firstName;
 	private String lastName;
 	private String address;
@@ -16,12 +16,12 @@ public class AddressBookDto {
 	private String eMail;
 	
 	
-	@Override
-	public String toString() {
-		return "AddressBookDto [firstName=" + firstName + ", lastName=" + lastName + ", address=" + address + ", city="
-				+ city + ", state=" + state + ", zip=" + zip + ", phoneNumber=" + phoneNumber + ", eMail=" + eMail
-				+ "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "AddressBookDto [firstName=" + firstName + ", lastName=" + lastName + ", address=" + address + ", city="
+//				+ city + ", state=" + state + ", zip=" + zip + ", phoneNumber=" + phoneNumber + ", eMail=" + eMail
+//				+ "]";
+//	}
 	public String getFirstName() {
 		return firstName;
 	}
