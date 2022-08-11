@@ -2,6 +2,12 @@ package com.blz.AddressBook.Model;
 import javax.persistence.*;
 
 import com.blz.AddressBook.Dto.AddressBookDto;
+
+
+import lombok.Data;
+
+@Data
+@Entity
 public class AddressBookModel {
 
 	@Id
@@ -18,6 +24,7 @@ public class AddressBookModel {
 	
 
 	public AddressBookModel(AddressBookDto addressBookDto) {
+//		this.contactId=addressBookDto.getContactId();
 		this.firstName=addressBookDto.getFirstName();
 		this.lastName=addressBookDto.getLastName();
 		this.address=addressBookDto.getAddress();
@@ -30,6 +37,26 @@ public class AddressBookModel {
 	}
 	
 	
+	public AddressBookModel(int i, AddressBookModel obj) {
+	//	AddressBookModel obj1 =new  AddressBookModel();
+	//	this.contactId=obj.getContactId();
+		this.firstName=obj.getFirstName();
+		this.lastName=obj.getLastName();
+		this.address=obj.getAddress();
+		this.city=obj.getCity();
+		this.state=obj.getState();
+		this.zip=obj.getZip();
+		this.phoneNumber=obj.getPhoneNumber();
+		this.eMail=obj.geteMail();
+		
+	}
+
+
+	public AddressBookModel() {
+		// TODO Auto-generated constructor stub
+	}
+
+
 	public long getContactId() {
 		return contactId;
 	}

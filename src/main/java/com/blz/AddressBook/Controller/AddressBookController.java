@@ -1,45 +1,49 @@
 package com.blz.AddressBook.Controller;
 
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.*;
 
 import com.blz.AddressBook.Dto.AddressBookDto;
-import com.blz.AddressBook.Service.AddressBookService;
+import com.blz.AddressBook.Model.AddressBookModel;
+import com.blz.AddressBook.Service.IAddressBookService;
+
 
 @RestController
 @RequestMapping("/addressbook")
 public class AddressBookController {
 	
 	@Autowired
-	AddressBookService service;
+	IAddressBookService service;
 
-	@GetMapping("/get")
-	public ResponseEntity<String> getData(){
-		return  new ResponseEntity<String> ("Get Call",HttpStatus.OK);
+
+	@GetMapping("/readList")
+	public List<AddressBookModel> readAll(){
+		return service.readList();
 	}
 	
-	@GetMapping("/getbyid/{id}")
-	public ResponseEntity<String> getById(@PathVariable("id") long id){
-		return new ResponseEntity<String> ("Call for id "+id,HttpStatus.OK);
+	@GetMapping("/readbyid/{id}")
+	public AddressBookModel readById(@PathVariable long id) {
+		return service.readById(id);
 	}
 	
-	// Using ResponseEntity to return json response
-	
-	@PostMapping("/post")
-	public ResponseEntity<AddressBookDto> add(@RequestBody AddressBookDto addressBookDto){
-		return new ResponseEntity<AddressBookDto>(addressBookDto,HttpStatus.OK);
-	}
+	@PostMapping("/create")
+	public AddressBookModel create(@RequestBody AddressBookModel obj) {
+		return service.create(obj);
+	}	
 	
 	@PutMapping("/update/{id}")
-	public ResponseEntity<AddressBookDto> update(@RequestBody AddressBookDto addressBookDto,@PathVariable long id){
-		return new ResponseEntity<AddressBookDto>(addressBookDto,HttpStatus.OK);
+	public AddressBookModel update(@RequestBody AddressBookDto obj, @PathVariable long id) {
+
+		return service.update(id,obj);
 	}
 	
-	@DeleteMapping("/delete")
-	public ResponseEntity<String> delete(){
-		return new ResponseEntity<String>("Delete call",HttpStatus.OK);
+	@DeleteMapping("/delete/{id}")
+	public AddressBookModel delete(@PathVariable long id) {
+		return service.delete(id);
 	}
 	
 }
