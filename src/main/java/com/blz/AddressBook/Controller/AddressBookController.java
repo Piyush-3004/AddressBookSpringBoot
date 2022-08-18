@@ -22,18 +22,17 @@ public class AddressBookController {
 	@Autowired
 	IAddressBookService service;
 
+	@PostMapping("/create")
+	public AddressBookModel create(@Valid @RequestBody AddressBookDto addressBookDto) {
+		return service.create(addressBookDto);
+	}	
 
 	@GetMapping("/readList")
 	public List<AddressBookModel> readAll(){
 		return service.readList();
 	}
-	
-	@PostMapping("/sendmailheader")
-	public void sendMail(@RequestHeader String mail,@RequestHeader String subject,@RequestHeader String body) {
-		service.sendMail(mail,subject,body);
-	}
-	
-	@GetMapping("/readbyheadefirstnamer")
+
+	@GetMapping("/readbyfirstnamer")
 	public AddressBookModel readbyheader(@RequestHeader String firstName) {
 		return service.readbyheader(firstName);
 	}
@@ -42,22 +41,6 @@ public class AddressBookController {
 	public AddressBookModel readById(@PathVariable long id) {
 		return service.readById(id);
 	}
-		
-	@PostMapping("/create")
-	public AddressBookModel create(@Valid @RequestBody AddressBookDto obj) {
-		return service.create(obj);
-	}	
-	
-	@PutMapping("/update/{id}")
-	public AddressBookModel update(@RequestBody AddressBookDto obj, @PathVariable long id) {
-
-		return service.update(id,obj);
-	}
-	
-	@DeleteMapping("/delete/{id}")
-	public AddressBookModel delete(@PathVariable long id) {
-		return service.delete(id);
-	}
 	
 	@GetMapping("/getsortedbyname")
 	public List<AddressBookModel> getSortenByName(){
@@ -65,9 +48,25 @@ public class AddressBookController {
 	}
 	
 //  partial matching of city name working
-	@GetMapping("/getbycity/{city}")
+	@GetMapping("/getbycitybycontent/{city}")
 	public List<AddressBookModel> getByCity(@PathVariable String city){
 		return service.getByCity(city);
+	}
+
+	@PutMapping("/update/{id}")
+	public AddressBookModel update(@RequestBody AddressBookDto addressBookDto, @PathVariable long id) {
+		
+		return service.update(id,addressBookDto);
+	}
+	
+	@DeleteMapping("/delete/{id}")
+	public AddressBookModel delete(@PathVariable long id) {
+		return service.delete(id);
+	}
+	// mail will be sent if mail if is present in DB
+	@PostMapping("/sendmailheader")
+	public void sendMail(@RequestHeader String mail,@RequestHeader String subject,@RequestHeader String body) {
+		service.sendMail(mail,subject,body);
 	}
 	
 }
